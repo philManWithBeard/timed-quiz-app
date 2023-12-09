@@ -1,29 +1,36 @@
 // Start button
 
 //      Event Listener
-const startButton = document.querySelector("#start");
+const startButtonEl = document.querySelector("#start");
 
-startButton.addEventListener("click", () => {
+startButtonEl.addEventListener("click", () => {
   console.log(`Start Button Pressed`);
   startQuiz();
-  startTimer();
+  timer();
 });
-
-//      Start Quiz
-
-const startQuiz = () => console.log(`Start Quiz`);
-
-//      Start Timer
-
-const startTimer = () => console.log("Start Timer");
 
 // Timer
 
-//      Set Count Interval
-
 //      Select DOM Element
 
+const timerEl = document.querySelector("#time");
+
+//      Set Count Interval
+
+const timer = () => {
+  let seconds = 0;
+
+  // Sets interval in variable
+  var timerInterval = setInterval(function () {
+    seconds++;
+    console.log(seconds);
+    timerEl.textContent = seconds;
+  }, 1000);
+};
+
 // Quiz
+
+const startQuiz = () => console.log(`Start Quiz`);
 
 //      Remove Start Elements
 
