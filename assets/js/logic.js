@@ -1,10 +1,10 @@
 // Selectors
 
-//  Start Screen
-const startScreenEl = document.querySelector(".start-screen");
-
 //  Start Button
 const startButtonEl = document.querySelector("#start");
+
+//  Start Screen
+const startScreenEl = document.querySelector("#start-screen");
 
 // Start button
 
@@ -16,11 +16,11 @@ startButtonEl.addEventListener("click", () => {
 
 // Timer
 
-//      Select DOM Element
+//  Select DOM Element
 
 const timerEl = document.querySelector("#time");
 
-//      Set Count Interval
+//  Set Count Interval
 
 const timer = () => {
   let seconds = 0;
@@ -35,9 +35,16 @@ const timer = () => {
 
 // Quiz
 
-const startQuiz = () => console.log(`Start Quiz`);
+const startQuiz = () => {
+  console.log(`Start Quiz`);
+  hideStartElements();
+};
 
 //      Hide Start Elements
+const hideStartElements = () => {
+  console.log(`Hide start elements`);
+  startScreenEl.style.visibility = "hidden";
+};
 
 //      Present question
 
