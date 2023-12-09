@@ -1,6 +1,11 @@
 // Start button
 
 //      Event Listener
+const startButton = document.querySelector("#start");
+
+startButton.addEventListener("click", () =>
+  console.log(`Start Button Pressed`)
+);
 
 //      Start Quiz
 
