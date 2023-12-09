@@ -6,6 +6,9 @@ const startButtonEl = document.querySelector("#start");
 //  Start Screen
 const startScreenEl = document.querySelector("#start-screen");
 
+//  Questions
+const questionsEl = document.querySelector("#questions");
+
 // Start button
 
 startButtonEl.addEventListener("click", () => {
@@ -38,17 +41,21 @@ const timer = () => {
 const startQuiz = () => {
   console.log(`Start Quiz`);
   hideStartElements();
+  presentQuestionElements();
 };
 
 //      Hide Start Elements
 const hideStartElements = () => {
   console.log(`Hide start elements`);
-  startScreenEl.style.visibility = "hidden";
+  startScreenEl.classList.add("hide");
 };
 
 //      Present question
 
-//      Present answers
+const presentQuestionElements = () => {
+  console.log(`Present question elements`);
+  questionsEl.classList.remove("hide");
+};
 
 //      Present correct or incorrect status
 
