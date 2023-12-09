@@ -3,13 +3,19 @@
 //      Event Listener
 const startButton = document.querySelector("#start");
 
-startButton.addEventListener("click", () =>
-  console.log(`Start Button Pressed`)
-);
+startButton.addEventListener("click", () => {
+  console.log(`Start Button Pressed`);
+  startQuiz();
+  startTimer();
+});
 
 //      Start Quiz
 
+const startQuiz = () => console.log(`Start Quiz`);
+
 //      Start Timer
+
+const startTimer = () => console.log("Start Timer");
 
 // Timer
 
