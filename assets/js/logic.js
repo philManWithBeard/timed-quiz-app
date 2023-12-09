@@ -1,7 +1,12 @@
-// Start button
+// Selectors
 
-//      Event Listener
+//  Start Screen
+const startScreenEl = document.querySelector(".start-screen");
+
+//  Start Button
 const startButtonEl = document.querySelector("#start");
+
+// Start button
 
 startButtonEl.addEventListener("click", () => {
   console.log(`Start Button Pressed`);
@@ -32,7 +37,7 @@ const timer = () => {
 
 const startQuiz = () => console.log(`Start Quiz`);
 
-//      Remove Start Elements
+//      Hide Start Elements
 
 //      Present question
 
