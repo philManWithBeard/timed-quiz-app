@@ -42,6 +42,7 @@ startButtonEl.addEventListener("click", () => {
 // Timer
 
 const timer = () => {
+  timerEl.textContent = seconds;
   // Sets interval in variable
   var timerInterval = setInterval(function () {
     seconds--;
@@ -74,19 +75,22 @@ const toggleQuestionVisibility = () => {
   questionsEl.classList.remove("hide");
 };
 
+const clearChoices = () => {
+  while (choicesEl.firstChild) {
+    choicesEl.removeChild(choicesEl.firstChild);
+  }
+};
+
 //  Present Question
 
 const presentNextQuestion = () => {
   console.log(`Present question elements`);
   questionTitleEl.textContent = questions[questionNumber].Question;
   let answerNumber = 0;
-  while (choicesEl.firstChild) {
-    choicesEl.removeChild(choicesEl.firstChild);
-  }
+  clearChoices();
   questions[questionNumber].Choices.forEach((i) => {
     answerNumber++;
     const newButton = document.createElement("button");
-    console.log(i);
     newButton.textContent = answerNumber + ". " + i;
     newButton.setAttribute("id", answerNumber);
     choicesEl.appendChild(newButton);
@@ -106,7 +110,14 @@ const choicesCheck = (event) => {
 };
 
 // Score Screen
-const presentScore = () => console.log("SCORE!");
+const presentScore = () => {
+  clearChoices();
+  questionTitleEl.textContent = "All done!";
+  console.log("SCORE!");
+  const pElement = document.createElement("p");
+  pElement.textContent = `Your final score is ${seconds}.`;
+  choicesEl.appendChild(pElement);
+};
 
 //      Store state in localstorage
 
