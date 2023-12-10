@@ -103,14 +103,18 @@ const presentNextQuestion = () => {
 const choicesCheck = (event) => {
   event.preventDefault();
   event.stopPropagation();
+  let correct = new Audio("../assets/sfx/correct.wav");
+  let wrong = new Audio("../assets/sfx/incorrect.wav");
   if (event.target.classList.contains("choiceButton")) {
     feedbackEl.classList.remove("hide");
     if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
       seconds -= 10;
       timerEl.textContent = seconds;
       feedbackEl.textContent = "Wrong!";
+      wrong.play();
     } else {
       feedbackEl.textContent = "Correct!";
+      correct.play();
     }
 
     questionNumber++;
@@ -143,7 +147,8 @@ const storeScore = (event) => {
   }
 
   console.log("Storing Score");
-  localStorage.setItem("userScore", userScore);
+  localStorage.setItem("userScore", JSON.stringify(userScore));
+  window.location.href = "./highscores.html";
 };
 
 //      Hold username
