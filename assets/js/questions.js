@@ -12,7 +12,7 @@ const questions = [
   },
   {
     Question: "Arrays in JavaScript can be used to store _____.",
-    Answer: [
+    Choices: [
       "numbers and strings",
       "other arrays",
       "booleans",
@@ -23,13 +23,13 @@ const questions = [
   {
     Question:
       "String values must be enclosed within _____ when being assigned to variables.",
-    Answer: ["commas", "curly brackets", "quotes", "parentheses"],
+    Choices: ["commas", "curly brackets", "quotes", "parentheses"],
     Correct: 3,
   },
   {
     Question:
       "A very useful too used durin development and debugging for printing content to the debugger is:",
-    Answer: ["JavaScript", "terminal / bash", "for loops", "console.log"],
+    Choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
     Correct: 4,
   },
 ];

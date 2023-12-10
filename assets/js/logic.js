@@ -32,12 +32,13 @@ startButtonEl.addEventListener("click", () => {
 // Timer
 
 const timer = () => {
-  let seconds = 0;
-
   // Sets interval in variable
   var timerInterval = setInterval(function () {
-    seconds++;
-    console.log(seconds);
+    seconds--;
+    if (seconds < 0) {
+      clearInterval(interval);
+      console.log("Ding!");
+    }
     timerEl.textContent = seconds;
   }, 1000);
 };
@@ -65,10 +66,11 @@ const toggleQuestionVisibility = () => {
 
 //  Present Question
 
-const presentNextQuestion = (questionNumber) => {
+const presentNextQuestion = () => {
   console.log(`Present question elements`);
   questionTitleEl.textContent = questions[questionNumber].Question;
   let answerNumber = 0;
+  choicesEl.innerHTML = "";
   questions[questionNumber].Choices.forEach((i) => {
     answerNumber++;
     const newButton = document.createElement("button");
@@ -79,30 +81,27 @@ const presentNextQuestion = (questionNumber) => {
   });
 };
 
-// Choice Buttons
+//  Choice Buttons
 
-const choicesCheck = () => console.log(`Choice Selected`);
-
-// Global Variables
-
-let score = 0;
-let questionNumber = 0;
-
-//  Question Counter
-
-let questionCounter = (correct) => {
-  if (correct) {
-    score++;
+const choicesCheck = (event) => {
+  if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
+    console.log("is not correct");
+    seconds -= 10;
   }
+
   questionNumber++;
-  presentNextQuestion(questionNumber);
+  presentNextQuestion();
 };
 
 // State
 
-//      Hold state Question
+//  Question Number
 
-//      Hold state answer status
+let questionNumber = 0;
+
+//  Time
+
+let seconds = 75;
 
 //      Store state in localstorage
 
