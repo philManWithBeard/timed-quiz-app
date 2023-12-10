@@ -1,57 +1,47 @@
-// Global Variables
+/*--- Global Variables ---*/
 
-//  Question Number
-
+// Question Number
 let questionNumber = 0;
 
-//  Time
-
+// Time
 let seconds = 75;
 
-// Selectors
+/*--- Selectors ---*/
 
-//  Start Button
+// Start Button
 const startButtonEl = document.querySelector("#start");
 
-//  Choice Button
+// Choice Button
 const choiceButtonsEl = document.querySelector(".choice");
 
-//  Start Screen
+// Start Screen
 const startScreenEl = document.querySelector("#start-screen");
 
-//  Questions
+// Questions
 const questionsEl = document.querySelector("#questions");
 
-//  Question Title
+// Question Title
 const questionTitleEl = document.querySelector("#question-title");
 
-//  Question Choices
+// Question Choices
 const choicesEl = document.querySelector("#choices");
 
-//  Timer
+// Timer
 const timerEl = document.querySelector("#time");
 
-//  Final Score
-
+// Final Score
 const finalScoreEl = document.querySelector("#final-score");
 
-//  End Screen
-
+// End Screen
 const endScreenEl = document.querySelector("#end-screen");
 
-//  Feedback
-
+// Feedback
 const feedbackEl = document.querySelector("#feedback");
 
-// Start button
+// Submit
+const submitEl = document.querySelector("#submit");
 
-startButtonEl.addEventListener("click", () => {
-  console.log(`Start Button Pressed`);
-  startQuiz();
-  timer();
-});
-
-// Timer
+/*--- Timer ---*/
 
 const timer = () => {
   timerEl.textContent = seconds;
@@ -66,37 +56,33 @@ const timer = () => {
   }, 1000);
 };
 
-// Quiz
+/*--- Quiz ---*/
 
 const startQuiz = () => {
-  console.log(`Start Quiz`);
   toggleStartVisibility();
   toggleQuestionVisibility();
   presentNextQuestion(0);
 };
 
-//  Toggle Start Visibility
+// Toggle Start Visibility
 const toggleStartVisibility = () => {
-  console.log(`Toggle Start Visibility`);
   startScreenEl.classList.add("hide");
 };
 
-//  Toggle Question Visibility
+// Question Visibility
 const toggleQuestionVisibility = () => {
-  console.log(`Toggle Question Visibility`);
   questionsEl.classList.remove("hide");
 };
 
+// Clear Choices
 const clearChoices = () => {
   while (choicesEl.firstChild) {
     choicesEl.removeChild(choicesEl.firstChild);
   }
 };
 
-//  Present Question
-
+// Present Question
 const presentNextQuestion = () => {
-  console.log(`Present question elements`);
   questionTitleEl.textContent = questions[questionNumber].Question;
   let answerNumber = 0;
   clearChoices();
@@ -109,12 +95,10 @@ const presentNextQuestion = () => {
   });
 };
 
-//  Choice Buttons
-
+// Choice Buttons
 const choicesCheck = (event) => {
   feedbackEl.classList.remove("hide");
   if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
-    console.log("is not correct");
     seconds -= 10;
     timerEl.textContent = seconds;
     feedbackEl.textContent = "Wrong!";
@@ -126,7 +110,8 @@ const choicesCheck = (event) => {
   questionNumber < questions.length ? presentNextQuestion() : presentScore();
 };
 
-// Score Screen
+/*--- Score Screen ---*/
+
 const presentScore = () => {
   questionsEl.classList.add("hide");
   endScreenEl.classList.remove("hide");
@@ -136,8 +121,22 @@ const presentScore = () => {
 
 //      Store state in localstorage
 
+const storeScore = () => console.log("Storing Score");
+
 //      Hold username
 
 //      Hold total score
 
+/*--- Event Listeners ---*/
+
+//  Start Button
+startButtonEl.addEventListener("click", () => {
+  startQuiz();
+  timer();
+});
+
+//  Choices Button
 choicesEl.addEventListener("click", choicesCheck);
+
+//  Submit Button
+submitEl.addEventListener("click", storeScore);
