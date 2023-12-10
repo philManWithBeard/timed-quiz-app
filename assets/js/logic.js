@@ -31,6 +31,18 @@ const choicesEl = document.querySelector("#choices");
 //  Timer
 const timerEl = document.querySelector("#time");
 
+//  Final Score
+
+const finalScoreEl = document.querySelector("#final-score");
+
+//  End Screen
+
+const endScreenEl = document.querySelector("#end-screen");
+
+//  Feedback
+
+const feedbackEl = document.querySelector("#feedback");
+
 // Start button
 
 startButtonEl.addEventListener("click", () => {
@@ -44,10 +56,10 @@ startButtonEl.addEventListener("click", () => {
 const timer = () => {
   timerEl.textContent = seconds;
   // Sets interval in variable
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     seconds--;
-    if (seconds < 0) {
-      clearInterval(interval);
+    if (seconds === 0) {
+      clearInterval(timerInterval);
       console.log("Ding!");
     }
     timerEl.textContent = seconds;
@@ -100,9 +112,14 @@ const presentNextQuestion = () => {
 //  Choice Buttons
 
 const choicesCheck = (event) => {
+  feedbackEl.classList.remove("hide");
   if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
     console.log("is not correct");
     seconds -= 10;
+    timerEl.textContent = seconds;
+    feedbackEl.textContent = "Wrong!";
+  } else {
+    feedbackEl.textContent = "Correct!";
   }
 
   questionNumber++;
@@ -111,12 +128,10 @@ const choicesCheck = (event) => {
 
 // Score Screen
 const presentScore = () => {
-  clearChoices();
-  questionTitleEl.textContent = "All done!";
-  console.log("SCORE!");
-  const pElement = document.createElement("p");
-  pElement.textContent = `Your final score is ${seconds}.`;
-  choicesEl.appendChild(pElement);
+  questionsEl.classList.add("hide");
+  endScreenEl.classList.remove("hide");
+  clearInterval(timerInterval);
+  finalScoreEl.textContent = seconds;
 };
 
 //      Store state in localstorage
