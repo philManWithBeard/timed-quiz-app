@@ -9,6 +9,15 @@ const startScreenEl = document.querySelector("#start-screen");
 //  Questions
 const questionsEl = document.querySelector("#questions");
 
+//  Question Title
+const questionTitleEl = document.querySelector("#question-title");
+
+//  Question Choices
+const choicesEl = document.querySelector("#choices");
+
+//  Timer
+const timerEl = document.querySelector("#time");
+
 // Start button
 
 startButtonEl.addEventListener("click", () => {
@@ -18,12 +27,6 @@ startButtonEl.addEventListener("click", () => {
 });
 
 // Timer
-
-//  Select DOM Element
-
-const timerEl = document.querySelector("#time");
-
-//  Set Count Interval
 
 const timer = () => {
   let seconds = 0;
@@ -40,24 +43,44 @@ const timer = () => {
 
 const startQuiz = () => {
   console.log(`Start Quiz`);
-  hideStartElements();
-  presentQuestionElements();
+  toggleStartVisibility();
+  toggleQuestionVisibility();
+  presentNextQuestion(0);
 };
 
-//      Hide Start Elements
-const hideStartElements = () => {
-  console.log(`Hide start elements`);
+//  Toggle Start Visibility
+const toggleStartVisibility = () => {
+  console.log(`Toggle Start Visibility`);
   startScreenEl.classList.add("hide");
 };
 
-//      Present question
-
-const presentQuestionElements = () => {
-  console.log(`Present question elements`);
+//  Toggle Question Visibility
+const toggleQuestionVisibility = () => {
+  console.log(`Toggle Question Visibility`);
   questionsEl.classList.remove("hide");
 };
 
-//      Present correct or incorrect status
+//  Present Question
+
+const presentNextQuestion = (questionNumber) => {
+  console.log(`Present question elements`);
+  questionTitleEl.textContent = questions[0].Question;
+};
+
+// Global Variables
+
+let score = 0;
+let questionNumber = 0;
+
+//  Question Counter
+
+let questionCounter = (correct) => {
+  if (correct) {
+    score++;
+  }
+  questionNumber++;
+  presentNextQuestion(questionNumber);
+};
 
 // State
 
