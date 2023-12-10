@@ -94,6 +94,7 @@ const presentNextQuestion = () => {
     const newButton = document.createElement("button");
     newButton.textContent = answerNumber + ". " + i;
     newButton.setAttribute("id", answerNumber);
+    newButton.setAttribute("class", "choiceButton");
     choicesEl.appendChild(newButton);
   });
 };
@@ -102,17 +103,19 @@ const presentNextQuestion = () => {
 const choicesCheck = (event) => {
   event.preventDefault();
   event.stopPropagation();
-  feedbackEl.classList.remove("hide");
-  if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
-    seconds -= 10;
-    timerEl.textContent = seconds;
-    feedbackEl.textContent = "Wrong!";
-  } else {
-    feedbackEl.textContent = "Correct!";
-  }
+  if (event.target.classList.contains("choiceButton")) {
+    feedbackEl.classList.remove("hide");
+    if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
+      seconds -= 10;
+      timerEl.textContent = seconds;
+      feedbackEl.textContent = "Wrong!";
+    } else {
+      feedbackEl.textContent = "Correct!";
+    }
 
-  questionNumber++;
-  questionNumber < questions.length ? presentNextQuestion() : presentScore();
+    questionNumber++;
+    questionNumber < questions.length ? presentNextQuestion() : presentScore();
+  }
 };
 
 /*--- Score Screen ---*/
