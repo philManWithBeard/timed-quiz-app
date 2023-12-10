@@ -1,3 +1,13 @@
+// Global Variables
+
+//  Question Number
+
+let questionNumber = 0;
+
+//  Time
+
+let seconds = 75;
+
 // Selectors
 
 //  Start Button
@@ -97,16 +107,6 @@ const choicesCheck = (event) => {
 
 // Score Screen
 const presentScore = () => console.log("SCORE!");
-
-// State
-
-//  Question Number
-
-let questionNumber = 0;
-
-//  Time
-
-let seconds = 75;
 
 //      Store state in localstorage
 
