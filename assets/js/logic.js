@@ -70,7 +70,9 @@ const presentNextQuestion = () => {
   console.log(`Present question elements`);
   questionTitleEl.textContent = questions[questionNumber].Question;
   let answerNumber = 0;
-  choicesEl.innerHTML = "";
+  while (choicesEl.firstChild) {
+    choicesEl.removeChild(choicesEl.firstChild);
+  }
   questions[questionNumber].Choices.forEach((i) => {
     answerNumber++;
     const newButton = document.createElement("button");
