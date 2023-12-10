@@ -64,7 +64,13 @@ const toggleQuestionVisibility = () => {
 
 const presentNextQuestion = (questionNumber) => {
   console.log(`Present question elements`);
-  questionTitleEl.textContent = questions[0].Question;
+  questionTitleEl.textContent = questions[questionNumber].Question;
+  questions[questionNumber].Choices.forEach((i) => {
+    const newButton = document.createElement("button");
+    console.log(i);
+    newButton.textContent = i;
+    document.body.appendChild(newButton);
+  });
 };
 
 // Global Variables

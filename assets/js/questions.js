@@ -1,13 +1,13 @@
 const questions = [
   {
     Question: "Commonly used data types DO NOT include:",
-    Answer: ["strings", "booleans", "alerts", "numbers"],
+    Choices: ["strings", "booleans", "alerts", "numbers"],
     Correct: 2,
   },
   {
     Question:
       "The condition in an if / else statement is enclosed within _____.",
-    Answer: ["quotes", "curly brackets", "parentheses", "square brackets"],
+    Choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
     Correct: 2,
   },
   {
