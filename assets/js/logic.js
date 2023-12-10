@@ -92,8 +92,11 @@ const choicesCheck = (event) => {
   }
 
   questionNumber++;
-  presentNextQuestion();
+  questionNumber < questions.length ? presentNextQuestion() : presentScore();
 };
+
+// Score Screen
+const presentScore = () => console.log("SCORE!");
 
 // State
 
