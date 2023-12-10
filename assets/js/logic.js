@@ -3,6 +3,9 @@
 //  Start Button
 const startButtonEl = document.querySelector("#start");
 
+//  Choice Button
+const choiceButtonsEl = document.querySelector(".choice");
+
 //  Start Screen
 const startScreenEl = document.querySelector("#start-screen");
 
@@ -65,13 +68,20 @@ const toggleQuestionVisibility = () => {
 const presentNextQuestion = (questionNumber) => {
   console.log(`Present question elements`);
   questionTitleEl.textContent = questions[questionNumber].Question;
+  let answerNumber = 0;
   questions[questionNumber].Choices.forEach((i) => {
+    answerNumber++;
     const newButton = document.createElement("button");
     console.log(i);
-    newButton.textContent = i;
-    document.body.appendChild(newButton);
+    newButton.textContent = answerNumber + ". " + i;
+    newButton.setAttribute("id", answerNumber);
+    choicesEl.appendChild(newButton);
   });
 };
+
+// Choice Buttons
+
+const choicesCheck = () => console.log(`Choice Selected`);
 
 // Global Variables
 
@@ -99,3 +109,5 @@ let questionCounter = (correct) => {
 //      Hold username
 
 //      Hold total score
+
+choicesEl.addEventListener("click", choicesCheck);
