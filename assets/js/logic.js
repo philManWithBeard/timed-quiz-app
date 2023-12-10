@@ -41,6 +41,9 @@ const feedbackEl = document.querySelector("#feedback");
 // Submit
 const submitEl = document.querySelector("#submit");
 
+// Initials
+const initialsEl = document.querySelector("#initials");
+
 /*--- Timer ---*/
 
 const timer = () => {
@@ -97,6 +100,8 @@ const presentNextQuestion = () => {
 
 // Choice Buttons
 const choicesCheck = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
   feedbackEl.classList.remove("hide");
   if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
     seconds -= 10;
@@ -121,7 +126,22 @@ const presentScore = () => {
 
 //      Store state in localstorage
 
-const storeScore = () => console.log("Storing Score");
+const storeScore = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const userScore = {
+    initials: initialsEl.value.trim(),
+    score: seconds,
+  };
+
+  if (userScore.initials.length > 3) {
+    alert("Error: Initials cannot be greater than 3");
+  }
+
+  console.log("Storing Score");
+  localStorage.setItem("userScore", userScore);
+};
 
 //      Hold username
 
@@ -130,7 +150,9 @@ const storeScore = () => console.log("Storing Score");
 /*--- Event Listeners ---*/
 
 //  Start Button
-startButtonEl.addEventListener("click", () => {
+startButtonEl.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
   startQuiz();
   timer();
 });
