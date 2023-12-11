@@ -109,8 +109,8 @@ const choicesCheck = (event) => {
   event.stopPropagation();
 
   // Variables for audio
-  let correct = new Audio("../assets/sfx/correct.wav");
-  let wrong = new Audio("../assets/sfx/incorrect.wav");
+  let correct = new Audio("./assets/sfx/correct.wav");
+  let wrong = new Audio("./assets/sfx/incorrect.wav");
 
   // Check if Choice is correct
   if (event.target.classList.contains("choiceButton")) {
