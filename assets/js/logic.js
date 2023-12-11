@@ -1,10 +1,24 @@
-/*--- Global Variables ---*/
+/*--- Global ---*/
 
 // Question Number
 let questionNumber = 0;
 
-// Time
+// Seconds
 let seconds = 75;
+
+// timerInterval
+const timer = () => {
+  timerEl.textContent = seconds;
+  // returns setInterval to global variable
+  timerInterval = setInterval(function () {
+    seconds--;
+    if (seconds === 0) {
+      clearInterval(timerInterval);
+      alert("You've run out of time");
+    }
+    timerEl.textContent = seconds;
+  }, 1000);
+};
 
 /*--- Selectors ---*/
 
@@ -44,35 +58,21 @@ const submitEl = document.querySelector("#submit");
 // Initials
 const initialsEl = document.querySelector("#initials");
 
-/*--- Timer ---*/
-
-const timer = () => {
-  timerEl.textContent = seconds;
-  // Sets interval in variable
-  timerInterval = setInterval(function () {
-    seconds--;
-    if (seconds === 0) {
-      clearInterval(timerInterval);
-      console.log("Ding!");
-    }
-    timerEl.textContent = seconds;
-  }, 1000);
-};
-
 /*--- Quiz ---*/
 
+// Call functions to start quiz
 const startQuiz = () => {
   toggleStartVisibility();
   toggleQuestionVisibility();
   presentNextQuestion(0);
 };
 
-// Toggle Start Visibility
+// Hide Start Screen
 const toggleStartVisibility = () => {
   startScreenEl.classList.add("hide");
 };
 
-// Question Visibility
+// Unhide Question
 const toggleQuestionVisibility = () => {
   questionsEl.classList.remove("hide");
 };
@@ -86,7 +86,10 @@ const clearChoices = () => {
 
 // Present Question
 const presentNextQuestion = () => {
+  // Set the question text
   questionTitleEl.textContent = questions[questionNumber].Question;
+
+  // Clear Choices, then iterate over Choices array and display all Choices as buttons
   let answerNumber = 0;
   clearChoices();
   questions[questionNumber].Choices.forEach((i) => {
@@ -99,12 +102,16 @@ const presentNextQuestion = () => {
   });
 };
 
-// Choice Buttons
+// Check Choices
 const choicesCheck = (event) => {
   event.preventDefault();
   event.stopPropagation();
+
+  // Variables for audio
   let correct = new Audio("../assets/sfx/correct.wav");
   let wrong = new Audio("../assets/sfx/incorrect.wav");
+
+  // Check if Choice is correct
   if (event.target.classList.contains("choiceButton")) {
     feedbackEl.classList.remove("hide");
     if (parseInt(event.srcElement.id) !== questions[questionNumber].Correct) {
@@ -117,6 +124,7 @@ const choicesCheck = (event) => {
       correct.play();
     }
 
+    // Either go to next question or if it's the final question then presen score
     questionNumber++;
     questionNumber < questions.length ? presentNextQuestion() : presentScore();
   }
@@ -131,7 +139,7 @@ const presentScore = () => {
   finalScoreEl.textContent = seconds;
 };
 
-//      Store state in localstorage
+// Store score and user initials in localstorage
 
 const storeScore = (event) => {
   event.preventDefault();
@@ -144,6 +152,7 @@ const storeScore = (event) => {
     score: seconds,
   };
 
+  // validate initials and alert user or set data and go to high score screen
   if (userScore.initials.length > 3) {
     alert("Error: Initials cannot be greater than 3");
   } else if (!userScore.initials.match(/^[A-Za-z]*$/)) {
@@ -156,7 +165,7 @@ const storeScore = (event) => {
   }
 };
 
-/* handler for set data  */
+// Handler for set data
 let setData = (item) => {
   if (getData(item) != false) {
     alert("Score already added");
@@ -165,20 +174,12 @@ let setData = (item) => {
     data = data != false ? data : [];
     data.push(item);
     data = JSON.stringify(data);
-    /*
-     * localStorage.setItem(<itemname>,<itemvalue>) main method
-     * (predefined method of js) for set item into localstorage
-     */
     localStorage.setItem("userScore", data);
   }
 };
 
-/* handler for get data  */
+// Handler for get data
 let getData = (item = null) => {
-  /*
-   * localStorage.getItem(<itemname>) main method
-   * (predefined method of js) for getting item from localstorage
-   */
   let data = JSON.parse(localStorage.getItem("userScore"));
   if (data) {
     if (item) {
@@ -193,13 +194,9 @@ let getData = (item = null) => {
   return false;
 };
 
-//      Hold username
-
-//      Hold total score
-
 /*--- Event Listeners ---*/
 
-//  Start Button
+// Start Button
 startButtonEl.addEventListener("click", (event) => {
   event.preventDefault();
   event.stopPropagation();
@@ -207,8 +204,8 @@ startButtonEl.addEventListener("click", (event) => {
   timer();
 });
 
-//  Choices Button
+// Choices Button
 choicesEl.addEventListener("click", choicesCheck);
 
-//  Submit Button
+// Submit Button
 submitEl.addEventListener("click", storeScore);
