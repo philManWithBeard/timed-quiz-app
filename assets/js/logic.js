@@ -15,6 +15,7 @@ const timer = () => {
     if (seconds === 0) {
       clearInterval(timerInterval);
       alert("You've run out of time");
+      presentScore();
     }
     timerEl.textContent = seconds;
   }, 1000);
