@@ -137,6 +137,8 @@ const storeScore = (event) => {
   event.preventDefault();
   event.stopPropagation();
 
+  const storedUserScore = localStorage.getItem("userScore");
+
   const userScore = {
     initials: initialsEl.value.trim(),
     score: seconds,
@@ -144,11 +146,51 @@ const storeScore = (event) => {
 
   if (userScore.initials.length > 3) {
     alert("Error: Initials cannot be greater than 3");
-  }
+  } else if (!userScore.initials.match(/^[A-Za-z]*$/)) {
+    alert("Error: Initials can only contain letters");
+  } else {
+    console.log("Storing Score");
 
-  console.log("Storing Score");
-  localStorage.setItem("userScore", JSON.stringify(userScore));
-  window.location.href = "./highscores.html";
+    setData(userScore);
+    window.location.href = "./highscores.html";
+  }
+};
+
+/* handler for set data  */
+let setData = (item) => {
+  if (getData(item) != false) {
+    alert("Score already added");
+  } else {
+    let data = getData(); // call getdata handler for getting  data from list
+    data = data != false ? data : [];
+    data.push(item);
+    data = JSON.stringify(data);
+    /*
+     * localStorage.setItem(<itemname>,<itemvalue>) main method
+     * (predefined method of js) for set item into localstorage
+     */
+    localStorage.setItem("userScore", data);
+  }
+};
+
+/* handler for get data  */
+let getData = (item = null) => {
+  /*
+   * localStorage.getItem(<itemname>) main method
+   * (predefined method of js) for getting item from localstorage
+   */
+  let data = JSON.parse(localStorage.getItem("userScore"));
+  if (data) {
+    if (item) {
+      if (data.indexOf(item) != -1) {
+        return data[item];
+      } else {
+        return false;
+      }
+    }
+    return data;
+  }
+  return false;
 };
 
 //      Hold username
